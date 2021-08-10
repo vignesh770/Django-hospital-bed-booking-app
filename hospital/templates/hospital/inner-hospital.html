@@ -1,0 +1,168 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="{% static 'resources/css/inner-hospital.css' %}" rel="stylesheet" />
+
+        <title>{{hospital.name}}</title>
+    </head>
+    <body>
+
+        <div class="container" id="container-id">
+
+            <div class="alert alert-success" role="alert" id="alert">
+               &nbsp;
+            </div>
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="red-alert">
+                &nbsp;
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="custom-close-btn" onclick="hide()"></button>
+            </div>
+
+            <div class="hospital-name d-flex flex-row justify-content-center">
+                <h1>{{hospital.name}}</h1>
+            </div>
+
+            <div class="hospital-details d-flex flex-row justify-content-center">
+                <div class="hospital-type d-flex flex-row">
+                    <h4>Hospital Type:</h4>
+                    <p>{{hospital.hospital_type}}</p>
+                </div>
+                <div class="help-line d-flex flex-row">
+                    <h4>Help line No.:</h4>
+                    <p>{{hospital.help_line}}</p>
+                </div>
+                <div class="email d-flex flex-row">
+                    <h4>Email:</h4>
+                    <p>{{hospital.email}}</p>
+                </div>
+            </div>
+
+            <div class="address">
+                <h4>Address</h4>
+                <p>{{hospital.address}}</p>
+            </div>
+
+            <div class="beds d-flex flex-row justify-content-center">
+                <div class="word-bed">
+                    <h4>word beds</h4>
+                    <div class="parent-inner d-flex flex-row">
+                        <div class="available-bed">
+                            <h5>Available</h5>
+                            <p id="available-word-bed">&nbsp;</p>
+                        </div>
+                        <div class="waiting-bed">
+                            <h5>Waiting</h5>
+                            <p id="waiting-word-bed">&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="icu-bed">
+                    <h4>icu beds</h4>
+                    <div class="parent-inner d-flex flex-row">
+                        <div class="available-bed">
+                            <h5>Available</h5>
+                            <p id="available-icu-bed">&nbsp;</p>
+                        </div>
+                        <div class="waiting-bed">
+                            <h5>Waiting</h5>
+                            <p id="waiting-icu-bed">&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="open-model-btn">Add Patient</button>
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add patient</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            {% csrf_token %}
+                                <div class="form-floating col-md-12">
+                                    <div class="input-group mb-3">
+                                        <select name="hospital-name" class="right-drop-down mt-2" id="hospital-name" disabled>
+                                            <option selected="selected" value="{{hospital.slug}}">{{hospital.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-floating col-md-8 mt-2">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Patient name*" aria-label="Patient name" aria-describedby="basic-addon2" id="patient-name">
+                                    </div>
+                                </div>
+
+                                <div class="form-floating col-md-4">
+                                    <select name="type" class="right-drop-down mt-2" id="gender">
+                                        <option selected="selected" value="">Select gender*</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-floating col-md-6 mt-2">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Primary contact*" aria-label="Primary contact" aria-describedby="basic-addon2" id="p_contact">
+                                    </div>
+                                </div>
+                                <div class="form-floating col-md-6 mt-2">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Secondary contact(Optional)" aria-label="Secondary contact" aria-describedby="basic-addon2" id="s_contact">
+                                    </div>
+                                </div>
+
+                                <div class="form-floating col-md-12 mt-2">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Patient adhar no*" aria-label="Patient adhar no" aria-describedby="basic-addon2" id="adhar">
+                                    </div>
+                                </div>
+
+                                <div class="form-floating col-md-12 mt-2">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Date of birth*</span>
+                                        <input type="date" class="form-control" aria-describedby="basic-addon2" id="dob">
+                                    </div>
+                                </div>
+
+                                <div class="form-floating col-md-12">
+                                    <select name="bed-type" class="right-drop-down mt-2" id="bed">
+                                        <option selected="selected" value="">Bed type*</option>
+                                        <option value="word">Word</option>
+                                        <option value="icu">ICU</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 mt-3">
+                                    <input type="submit" name="register" value="Add" id="add-btn" onclick="add_patient()" />
+                                </div>                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ hospital.slug|json_script:"hospital_slug" }}
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="{% static 'resources/js/inner-hospital.js' %}"></script>    
+    </body>
+</html>
+
+

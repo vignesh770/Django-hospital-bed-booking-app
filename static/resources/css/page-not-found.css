@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #aaa;
+}
+
+.my-container {
+    position: relative;
+    width: 350px;
+    height: 100%;
+    margin: 0 30px;
+    background: #fff;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 7px;
+    padding: 30px;
+}
+
+.my-container h1 {
+    font-size: 100px;
+    font-weight: bold;
+}
+
+

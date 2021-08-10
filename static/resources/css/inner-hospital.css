@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background-color: rgba(235, 229, 229, 0.836); */
+    background-color: #d6370c;
+}
+
+#container-id {
+    padding: 50px 50px;
+    background-color: #fff;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 7px;
+}
+
+.hospital-name {
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #aaa;
+}
+
+.hospital-type, .help-line {
+    margin-right: 50px;
+}
+
+.hospital-type h4, .help-line h4, .email h4 {
+    font-size: 20px;
+    margin-bottom: 0px;
+    color: #555;
+}
+
+.hospital-type p, .help-line p, .email p {
+    font-size: 17px;
+    margin-left: 7px;
+    color: #222;
+}
+
+.word-bed {
+    border: 1px solid #aaa;
+    margin-right: 50px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 30px 30px;
+    background-color: rgb(243, 242, 242);
+}
+
+.word-bed h4 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.available-bed {
+    margin-right: 30px;
+}
+
+.available-bed h5 {
+    margin-bottom: 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid green;
+    color: #555;
+    font-size: 17px;
+}
+
+.available-bed p {
+    margin-top: 7px;
+}
+
+.waiting-bed h5 {
+    margin-bottom: 0px;
+    padding-bottom: 5px;
+    color: #555;
+    font-size: 17px;
+    border-bottom: 1px solid orange;
+}
+
+.waiting-bed p {
+    margin-top: 7px;
+}
+
+.icu-bed {
+    border: 1px solid #555;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 30px 30px;
+    background-color: rgb(243, 242, 242);
+    border: 1px solid #aaa;
+}
+
+.icu-bed h4 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.btn {
+    background-color: #d6370c;
+    float: right;
+    color: rgba(214, 205, 205, 0.801);
+}
+
+.btn:hover {
+    color: #fff;
+    outline: none;
+}
+
+#gender, #bed, #hospital-name {
+    height: 38px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+#add-btn {
+    background-color: #d6370c;
+    color: rgba(214, 205, 205, 0.801);
+    text-transform: uppercase;
+    float: right;
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    border: none;
+}
+

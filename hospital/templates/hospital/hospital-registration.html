@@ -1,0 +1,153 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        
+        <!-- local static files -->
+        <link href="{% static 'resources/css/hospital-registration.css' %}" rel="stylesheet" />
+
+        <title>New registration for hospital</title>
+    </head>
+    <body>
+    
+        <div class="register-container">
+            <div class="row">
+                <h2>Register Hospital</h2>
+                {% csrf_token %}
+                <div class="form-floating col-md-8">
+                    <input type="text" class="form-control" id="hospital_name" placeholder="hospital name" required>
+                    <label id="hospital_name_label">Hospital Name<span style="color: red">*</span></label>
+                    <div class="invalid-feedback" id="hospital_name_err_id">
+                    </div>
+                </div>
+
+                <div class="form-floating col-md-4">
+                    <input type="text" class="form-control" id="hospital_id" placeholder="hospital id" required>
+                    <label id="hospital_id_label">Hospital ID<span style="color: red">*</span></label>
+                    <div class="invalid-feedback" id="hospital_id_err_id">
+                    </div>
+                </div>
+
+                <div class="form-floating col-md-8 mt-2">
+                    <input type="text" class="form-control" id="address" placeholder="hospital address" required>
+                    <label id="hospital_address_label">Hospital Address<span style="color: red">*</span></label>
+                    <div class="invalid-feedback" id="hospital_address_err_id">
+                    </div>
+                </div>
+
+                <div class="form-floating col-md-4">
+                    <select name="type" class="right-drop-down mt-2" id="hospital_type">
+                        <option selected="selected" value="">Hospital Type</option>
+                        <option value="government">Government</option>
+                        <option value="private">Private</option>
+                    </select>
+                    <div class="invalid-feedback" id="hospital_type_err_id"></div>
+                </div>
+
+                <div class="form-floating col-md-8">
+                    <select name="state" class="left-drop-down-cls mt-2" id="state">
+                        <option value="">Select State<span style="color: red">*</span></option>
+                    </select>
+                    <div class="invalid-feedback" id="state_err_id"></div>
+                </div> 
+
+                 <div class="form-floating col-md-4">
+                    <select name="type" class="right-drop-down mt-2" id="city">
+                        <option selected="selected" value="" id="city_label">City</option>
+                    </select>
+                    <div class="invalid-feedback" id="city_err_id"></div>
+                </div>
+
+                <div class="form-floating col-md-8 mt-2">
+                    <input type="email" class="form-control" id="email" placeholder="email" required>
+                    <label id="email_label">Email<span style="color: red">*</span></label>
+                    <div class="invalid-feedback" id="email_err_id">
+                    </div>
+                </div>     
+
+                <div class="form-floating col-md-4 mt-2">
+                    <input type="text" class="form-control" id="help_line" placeholder="help_line" required>
+                    <label id="help_line_label">Help Line No.<span style="color: red">*</span></label>
+                    <div class="invalid-feedback" id="help_line_err_id">
+                    </div>
+                </div> 
+
+                <div class="form-floating col-md-6 mt-2">
+                    <input type="text" class="form-control" id="user_name" placeholder="user name" required>
+                    <label id="user_name_label">User Name<span style="color: red">*</span></label>
+                    <div class="invalid-feedback" id="user_name_err_id">
+                    </div>
+                </div>
+                <div class="form-floating col-md-6 mt-2">
+                    <input type="password" class="form-control" id="password" placeholder="Password" required>
+                    <label id="password_label">Password<span style="color: red">*</span></label>
+                    <div class="invalid-feedback" id="password_err_id">
+                    </div>
+                </div>
+    
+                <div class="col-md-12">
+                    <input type="submit" name="register" value="Register" id="reg-btn" class="btn btn-primary" />
+                </div>
+                <br>
+                <p>Already registered? <a href="{% url 'hospital:login' %}">Login here</a></p>
+                <p class="error-message" id="error-msg">&nbsp;</p>
+            <div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="{% static 'resources/js/hospital-registration.js' %}"></script>
+
+    </body>
+</html>
+
+<script>
+    $(document).ready(function(){
+
+    load_json_data('state');
+
+    function load_json_data(id, state)
+    {
+    var html_code = '';
+    $.getJSON("{% static 'json/states2.json' %}", function(data){
+
+    html_code += '<option value="">Select '+id+'</option>';
+    $.each(data, function(key, value){
+        html_code += '<option value="'+value.name+'">'+value.name+'</option>';
+    });
+    $('#state').html(html_code);
+    });
+
+    }
+
+    $('#state').change(function(){
+        var country_id = document.getElementById('state').value;
+        if(country_id != '')
+        {
+            var city_names = '';
+            $.getJSON("{% static 'json/cities.json' %}", function(citydata){
+            $.each(citydata, function(key, value){
+                if(country_id==value.state)
+                {
+                    city_names += '<option value="'+value.id+'">'+value.name+'</option>';
+                }
+            });
+            $('#city').html(city_names);
+            });
+        }
+        else
+        {
+            $('#city').html('<option value="">Select city</option>');
+        }
+    });
+    });
+</script>
+
